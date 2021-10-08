@@ -1,5 +1,8 @@
+from os import error
+from PyQt5.QtCore import right
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5 import uic
+import math
 
 class MiVentana(QMainWindow):
     def __init__(self):
@@ -24,6 +27,24 @@ class MiVentana(QMainWindow):
         #Listeners de Eventos de los botones de las operaciones
         self.suma.clicked.connect(self.sumar)
         self.igual.clicked.connect(self.resultado)
+        self.div.clicked.connect(self.division)
+        self.potencia.clicked.connect(self.potencia2)
+        self.raiz.clicked.connect(self.raiz2)
+        self.borrarop.clicked.connect(self.bc)
+        self.btdes.clicked.connect(self.btd)
+
+    def btd(self):
+       valor=self.Calculo.text()
+       self.Calculo.setText(valor[:len(valor)-1])
+
+    def bc(self):
+         self.Calculo.clear()
+    
+    
+    
+    def bc(self):
+        self.Calculo.clear()
+
 
     def sumar(self):
         #Si ya tiene asignado un operador, agregamos el otro con el mismo botón
@@ -34,12 +55,52 @@ class MiVentana(QMainWindow):
         else:
             self.operador2 = int(self.Calculo.text())
             self.Calculo.setText(str(self.operador1+self.operador2))
+    
+    def division(self):
+        if(self.operador1 ==0):
+            self.operador1 = int(self.Calculo.text())
+            if (self.operador1 ==0):
+                self.Calculo.setText(print('invalido'))
+            else:
+               self.Calculo.setText("")
+               self.operacion = "division"	
+        else:
+            self.operador2 = int(self.Calculo.text())
+            self.Calculo.setText(str(self.operador1/self.operador2))
 
+    def potencia2(self):
+        if(self.operador1 == 0):
+            self.operador1 = int(self.Calculo.text())
+            self.Calculo.setText("")
+            self.operacion = "potencia"
+        else:
+            self.operador2 = int(self.Calculo.text())
+            self.Calculo.setText(str(self.operador1**self.operador2))
+    
+    def raiz2(self):
+        if(self.operador1 == 0):
+             self.operador1=int(self.Calculo.text())
+             self.operacion ='raiz'
+             self.Calculo.setText(str(self.operador1**0.5))
+
+             
+    
+    
     def resultado(self):
         #Se procede a la operación dependiendo del tipo y siempre y cuando este determinado el primer operador.
         if(self.operacion == "suma"):
             self.operador2 = int(self.Calculo.text())
             self.Calculo.setText(str(self.operador1+self.operador2))
+        elif(self.operacion == "potencia"):
+            self.operador2 = int(self.Calculo.text())
+            self.Calculo.setText(str(self.operador1**self.operador2))
+        elif(self.operacion == "division"):
+            self.operador2 = int(self.Calculo.text())
+            self.Calculo.setText(str(self.operador1/self.operador2))
+        elif ( self.operacion == "raiz"):
+            self.Calculo.setText(str(self.operador1**0.5))
+
+
 
     #Eventos de asignación de valores al label
     def click_1(self):
