@@ -28,6 +28,10 @@ class MiVentana(QMainWindow):
         self.potencia.clicked.connect(self.potencia2)
         self.raiz.clicked.connect(self.raiz2)
         self.btdes.clicked.connect(self.btd)
+        self.borrarop.clicked.connect(self.bc)
+
+    def bc(self):
+         self.Calculo.clear()
 
     def btd(self):
        valor=self.Calculo.text()
