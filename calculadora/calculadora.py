@@ -24,6 +24,7 @@ class MiVentana(QMainWindow):
         #Listeners de Eventos de los botones de las operaciones
         self.suma.clicked.connect(self.sumar)
         self.igual.clicked.connect(self.resultado)
+        self.div.clicked.connect(self.division)
 
     def sumar(self):
         #Si ya tiene asignado un operador, agregamos el otro con el mismo botón
@@ -34,12 +35,26 @@ class MiVentana(QMainWindow):
         else:
             self.operador2 = int(self.Calculo.text())
             self.Calculo.setText(str(self.operador1+self.operador2))
+    def division(self):
+        if(self.operador1 ==0):
+            self.operador1 = int(self.Calculo.text())
+            if (self.operador1 ==0):
+                self.Calculo.setText(print('invalido'))
+            else:
+               self.Calculo.setText("")
+               self.operacion = "division"	
+        else:
+            self.operador2 = int(self.Calculo.text())
+            self.Calculo.setText(str(self.operador1/self.operador2))
 
     def resultado(self):
         #Se procede a la operación dependiendo del tipo y siempre y cuando este determinado el primer operador.
         if(self.operacion == "suma"):
             self.operador2 = int(self.Calculo.text())
             self.Calculo.setText(str(self.operador1+self.operador2))
+        elif(self.operacion == "division"):
+            self.operador2 = int(self.Calculo.text())
+            self.Calculo.setText(str(self.operador1/self.operador2))    
 
     #Eventos de asignación de valores al label
     def click_1(self):
