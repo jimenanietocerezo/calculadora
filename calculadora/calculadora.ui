@@ -263,7 +263,7 @@
      <rect>
       <x>300</x>
       <y>240</y>
-      <width>51</width>
+      <width>101</width>
       <height>41</height>
      </rect>
     </property>
@@ -296,6 +296,32 @@
     </property>
     <property name="text">
      <string>÷</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="potencia">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>140</y>
+      <width>51</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>^</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="raiz">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>190</y>
+      <width>51</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>√</string>
     </property>
    </widget>
   </widget>
