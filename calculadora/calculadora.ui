@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>415</width>
-    <height>406</height>
+    <width>453</width>
+    <height>412</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -301,7 +301,7 @@
    <widget class="QPushButton" name="potencia">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>350</x>
       <y>140</y>
       <width>51</width>
       <height>41</height>
@@ -314,7 +314,7 @@
    <widget class="QPushButton" name="raiz">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>350</x>
       <y>190</y>
       <width>51</width>
       <height>41</height>
@@ -322,6 +322,19 @@
     </property>
     <property name="text">
      <string>√</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btdes">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>90</y>
+      <width>51</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>1</string>
     </property>
    </widget>
   </widget>

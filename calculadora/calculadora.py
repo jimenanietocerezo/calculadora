@@ -27,6 +27,11 @@ class MiVentana(QMainWindow):
         self.div.clicked.connect(self.division)
         self.potencia.clicked.connect(self.potencia2)
         self.raiz.clicked.connect(self.raiz2)
+        self.btdes.clicked.connect(self.btd)
+
+    def btd(self):
+       valor=self.Calculo.text()
+       self.Calculo.setText(valor[:len(valor)-1])
 
     def sumar(self):
         #Si ya tiene asignado un operador, agregamos el otro con el mismo botón
