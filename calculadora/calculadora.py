@@ -1,18 +1,46 @@
-from os import error
-from PyQt5.QtCore import right
-from PyQt5.QtWidgets import QMainWindow, QApplication
-from PyQt5 import uic
-import math
 
-class MiVentana(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        uic.loadUi("calculadora.ui", self)
-        #Seteamos los operadores
-        self.operador1 = 0
-        self.operador2 = 0
-        #Seteamos el tipo de operación a realizar
-        self.operacion = ""
+from PyQt5 import QtCore, uic, QtWidgets
+import sys, math
+
+#vinculamos archivo ui
+archivo = uic.loadUiType("calculadora.ui")[0]
+
+        #reducimos a un solo operador
+def num(self,s):
+    self.calculo.insertPlainText(s)
+            
+
+
+def operador(self,op):
+    div = self.calculo.toPlainText()
+    if(validarExpresion(div)):
+            nuevo = div + op
+            pantalla(self,nuevo)  
+
+def pantalla(self,a):
+    self.calculo.clear()
+    self.calculo.insertPlainText(a)
+
+def validarExpresion(div):
+    ultimo = div[len(div)-1]
+    simbolos = "+-*/."
+    encontro = True
+    for i in range(len(simbolos)):
+        if(simbolos[i] == ultimo):
+         encontro = False
+        break
+    return encontro  
+#separar por operacion para q pueda limitar la div y poner la potencia
+def calcular (self,div):
+    if (len(div)>2):
+        resultado = eval(str(div))
+        pantalla(self,str(resultado))
+    else:
+        pantalla(self,"ingrese una expresión para calcular: ")
+class MiVentana(QtWidgets.QMainWindow, archivo):
+    def __init__(self, parent=None):
+        QtWidgets.QMainWindow.__init__(self, parent)
+        self.setupUi(self)
         #Listeners de Eventos de los botones de los números
         self.boton1.clicked.connect(self.click_1)
         self.boton2.clicked.connect(self.click_2)
@@ -24,116 +52,92 @@ class MiVentana(QMainWindow):
         self.boton8.clicked.connect(self.click_8)
         self.boton9.clicked.connect(self.click_9)
         self.boton0.clicked.connect(self.click_0)
+        self.coma.clicked.connect(self.click_bcoma)
         #Listeners de Eventos de los botones de las operaciones
         self.suma.clicked.connect(self.sumar)
         self.igual.clicked.connect(self.resultado)
         self.div.clicked.connect(self.division)
         self.potencia.clicked.connect(self.potencia2)
         self.raiz.clicked.connect(self.raiz2)
-        self.borrarop.clicked.connect(self.bc)
-        self.btdes.clicked.connect(self.btd)
+        self.borrarop.clicked.connect(self.borrartodo)
+        self.btdes.clicked.connect(self.borraruno)
 
-    def btd(self):
-       valor=self.Calculo.text()
-       self.Calculo.setText(valor[:len(valor)-1])
+    def borraruno(self):
+       p = self.calculo.toPlainText()
+       pa = ""
+       for i in range(len(p)):
+          if (i == (len(p)-1)):
+           pa += ""
+          else:
+            pa += p[i]
+          pantalla(self,str(pa))
 
-    def bc(self):
-         self.Calculo.clear()
-    
-    
-    
-    def bc(self):
-        self.Calculo.clear()
+    def borrartodo(self):
+        self.calculo.clear()
 
+    def click_bcoma(self):
+        return operador(self,',')
 
     def sumar(self):
-        #Si ya tiene asignado un operador, agregamos el otro con el mismo botón
-        if(self.operador1 == 0):
-            self.operador1 = int(self.Calculo.text())
-            self.Calculo.setText("")
-            self.operacion = "suma"
-        else:
-            self.operador2 = int(self.Calculo.text())
-            self.Calculo.setText(str(self.operador1+self.operador2))
-    
+        return operador(self,'+')
+        
     def division(self):
-        if(self.operador1 ==0):
-            self.operador1 = int(self.Calculo.text())
-            if (self.operador1 ==0):
-                self.Calculo.setText(print('invalido'))
-            else:
-               self.Calculo.setText("")
-               self.operacion = "division"	
-        else:
-            self.operador2 = int(self.Calculo.text())
-            self.Calculo.setText(str(self.operador1/self.operador2))
+        return operador(self,'/')
+        
 
     def potencia2(self):
-        if(self.operador1 == 0):
-            self.operador1 = int(self.Calculo.text())
-            self.Calculo.setText("")
-            self.operacion = "potencia"
-        else:
-            self.operador2 = int(self.Calculo.text())
-            self.Calculo.setText(str(self.operador1**self.operador2))
+        p = self.calculo.toPlainText()
+        r = pow(float(p),2)
+        pantalla(self,str(r))
+        
     
     def raiz2(self):
-        if(self.operador1 == 0):
-             self.operador1=int(self.Calculo.text())
-             self.operacion ='raiz'
-             self.Calculo.setText(str(self.operador1**0.5))
+        p = self.calculo.toPlainText()
+        r = math.sqrt(float(p))
+        pantalla(self,str(r))
 
              
     
     
     def resultado(self):
-        #Se procede a la operación dependiendo del tipo y siempre y cuando este determinado el primer operador.
-        if(self.operacion == "suma"):
-            self.operador2 = int(self.Calculo.text())
-            self.Calculo.setText(str(self.operador1+self.operador2))
-        elif(self.operacion == "potencia"):
-            self.operador2 = int(self.Calculo.text())
-            self.Calculo.setText(str(self.operador1**self.operador2))
-        elif(self.operacion == "division"):
-            self.operador2 = int(self.Calculo.text())
-            self.Calculo.setText(str(self.operador1/self.operador2))
-        elif ( self.operacion == "raiz"):
-            self.Calculo.setText(str(self.operador1**0.5))
+        div = self.calculo.toPlainText()
+        calcular(self,div)
+        
 
 
 
     #Eventos de asignación de valores al label
     def click_1(self):
-        self.Calculo.setText(self.Calculo.text() + "1")
+        return num(self,"1")
 
     def click_2(self): 
-        self.Calculo.setText(self.Calculo.text() + "2")
+        return num(self,"2")
     
     def click_3(self): 
-        self.Calculo.setText(self.Calculo.text() + "3")
+        return num(self,"3")
     
     def click_4(self): 
-        self.Calculo.setText(self.Calculo.text() + "4")
+        return num(self,"4")
     
     def click_5(self): 
-        self.Calculo.setText(self.Calculo.text() + "5")
+        return num(self,"5")
     
     def click_6(self): 
-        self.Calculo.setText(self.Calculo.text() + "6")
+        return num(self,"6")
     
     def click_7(self): 
-        self.Calculo.setText(self.Calculo.text() + "7")
+        return num(self,"7")
     
     def click_8(self): 
-        self.Calculo.setText(self.Calculo.text() + "8")
+        return num(self,"8")
     
     def click_9(self): 
-        self.Calculo.setText(self.Calculo.text() + "9")
+        return num(self,"9")
     
     def click_0(self): 
-        self.Calculo.setText(self.Calculo.text() + "0")
+        return num(self,"0")
 
-app = QApplication([])
+app = QtWidgets.QApplication(sys.argv)
 win = MiVentana()
 win.show()
 app.exec_()
