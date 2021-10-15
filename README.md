@@ -1,3 +1,4 @@
 # calculadora
-#segunda entrega
-##un solo operador
+# segunda entrega
+
+## un solo operador
