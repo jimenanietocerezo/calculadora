@@ -1,6 +1,9 @@
 
 from PyQt5 import QtCore, uic, QtWidgets
 import sys, math
+import locale 
+locale.setlocale( locale.LC_ALL, 'en_US.UTF-8' )
+
 
 #vinculamos archivo ui
 archivo = uic.loadUiType("calculadora.ui")[0]
@@ -8,6 +11,8 @@ archivo = uic.loadUiType("calculadora.ui")[0]
         #reducimos a un solo operador
 def num(self,s):
     self.calculo.insertPlainText(s)
+    
+
             
 
 
@@ -21,6 +26,8 @@ def pantalla(self,a):
     self.calculo.clear()
     self.calculo.insertPlainText(a)
 
+
+
 def validarExpresion(div):
     ultimo = div[len(div)-1]
     simbolos = "+-*/."
@@ -30,7 +37,7 @@ def validarExpresion(div):
          encontro = False
         break
     return encontro  
-#separar por operacion para q pueda limitar la div y poner la potencia
+
 def calcular (self,div):
     if (len(div)>2):
         resultado = eval(str(div))
@@ -55,12 +62,33 @@ class MiVentana(QtWidgets.QMainWindow, archivo):
         self.coma.clicked.connect(self.click_bcoma)
         #Listeners de Eventos de los botones de las operaciones
         self.suma.clicked.connect(self.sumar)
+        self.resta.clicked.connect(self.restar)
         self.igual.clicked.connect(self.resultado)
         self.div.clicked.connect(self.division)
+        self.producto.clicked.connect(self.multiplicacion)
         self.potencia.clicked.connect(self.potencia2)
         self.raiz.clicked.connect(self.raiz2)
         self.borrarop.clicked.connect(self.borrartodo)
         self.btdes.clicked.connect(self.borraruno)
+
+        _translate = QtCore.QCoreApplication.translate
+        self.boton0.setShortcut(_translate("MiVentana", "0"))
+        self.boton1.setShortcut(_translate("MiVentana", "1"))
+        self.boton2.setShortcut(_translate("MiVentana", "2"))
+        self.boton3.setShortcut(_translate("MiVentana", "3"))
+        self.boton4.setShortcut(_translate("MiVentana", "4"))
+        self.boton5.setShortcut(_translate("MiVentana", "5"))
+        self.boton6.setShortcut(_translate("MiVentana", "6"))
+        self.boton7.setShortcut(_translate("MiVentana", "7"))
+        self.boton8.setShortcut(_translate("MiVentana", "8"))
+        self.boton9.setShortcut(_translate("MiVentana", "9"))
+        self.coma.setShortcut(_translate("MiVentana", ","))
+        self.suma.setShortcut(_translate("MiVentana", "+"))
+        self.resta.setShortcut(_translate("MiVentana", "-"))
+        self.igual.setShortcut(_translate("MiVentana", "Enter"))
+        self.div.setShortcut(_translate("MiVentana", "/"))
+        self.producto.setShortcut(_translate("MiVentana", "*"))
+        self.btdes.setShortcut(_translate("MiVentana", "delete"))
 
     def borraruno(self):
        p = self.calculo.toPlainText()
@@ -80,9 +108,16 @@ class MiVentana(QtWidgets.QMainWindow, archivo):
 
     def sumar(self):
         return operador(self,'+')
+    
+    def restar(self):
+        return operador(self,'-')
         
     def division(self):
         return operador(self,'/')
+
+    def multiplicacion(self):
+         return operador(self,'*')
+
         
 
     def potencia2(self):
@@ -102,8 +137,9 @@ class MiVentana(QtWidgets.QMainWindow, archivo):
     def resultado(self):
         div = self.calculo.toPlainText()
         calcular(self,div)
-        
-
+    
+    
+    
 
 
     #Eventos de asignación de valores al label
@@ -136,6 +172,11 @@ class MiVentana(QtWidgets.QMainWindow, archivo):
     
     def click_0(self): 
         return num(self,"0")
+
+
+
+
+        
 
 app = QtWidgets.QApplication(sys.argv)
 win = MiVentana()

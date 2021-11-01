@@ -324,7 +324,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>1</string>
+     <string>AC</string>
     </property>
    </widget>
    <widget class="QPushButton" name="coma">
@@ -353,6 +353,7 @@
      <font>
       <family>Bahnschrift SemiBold</family>
       <pointsize>20</pointsize>
+      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
